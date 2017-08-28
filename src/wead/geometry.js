@@ -1,5 +1,5 @@
-import vertexShaderSource from '../glsl/vertex.glsl';
-import fragmentShaderSource from '../glsl/fragment.glsl';
+import vertexShaderSource from '../glsl/base/vertex.glsl';
+import fragmentShaderSource from '../glsl/base/fragment.glsl';
 
 export class Geometry {
   constructor(wead, points, size) {
