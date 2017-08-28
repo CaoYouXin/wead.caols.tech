@@ -1,4 +1,9 @@
 import { Handlers } from './handler';
+import { WEAD } from './wead';
+import testJSON from './test.json';
 
-let handlers = new Handlers();
-window.btn_clicked = handlers.msg;
+console.log(testJSON);
+
+document.getElementById('test').addEventListener('click', new Handlers().msg);
+
+console.log(new WEAD());
