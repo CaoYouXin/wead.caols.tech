@@ -1,9 +1,22 @@
-import { Handlers } from './handler';
-import { WEAD } from './wead';
-import testJSON from './test.json';
+import { WEAD, Geometry } from './wead';
 
-console.log(testJSON);
+window.main = () => {
+  let canvasElem = document.getElementById('main');
+  let wead = new WEAD(canvasElem);
 
-document.getElementById('test').addEventListener('click', new Handlers().msg);
+  var positions = [
+    0, 0,
+    0, 0.5,
+    0.7, 0,
+  ];
+  let geometry = new Geometry(wead, positions, 2);
 
-console.log(new WEAD());
+  let render = () => {
+    wead.viewportToCanvas();
+    wead.clear();
+    geometry.draw();
+  };
+
+  window.addEventListener('resize', render);
+  render();
+}

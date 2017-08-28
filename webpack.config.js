@@ -67,7 +67,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(html|htm)$/,
+        test: /\.(html|htm|glsl)$/,
         use: [
           'html-loader'
         ]
