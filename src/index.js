@@ -1,7 +1,9 @@
-import { WEAD, PlaneGeometry } from './wead';
+import { WEAD, PlaneGeometry, CurtainGeometry } from './wead';
 import { generateTexture } from './wead/texture';
 import texVertexShaderSource from './glsl/texture/vertex.glsl';
 import texFragmentShaderSource from './glsl/texture/fragment.glsl';
+import curtainVertexShaderSource from './glsl/curtain/vertex.glsl';
+import curtainFragmentShaderSource from './glsl/curtain/fragment.glsl';
 import noiseTexture from './flame.png';
 
 const start = (image) => {
@@ -41,12 +43,24 @@ const start = (image) => {
   };
   let canvas = generateTexture(512, sand);
 
+  let curtain = new CurtainGeometry(wead);
+  geometry.shader(curtainVertexShaderSource, curtainFragmentShaderSource);
+  curtain.bind();
+
   let render = () => {
     wead.viewportToCanvas();
     wead.clear();
 
-    geometry.update(image, { "u_now": (performance.now() / 1000) % .3 });
+    let now = (performance.now() / 1000) % 2;
+    if (now > 1) {
+      now = 2 - now;
+    }
+
+    geometry.update(image, { "u_now": now });
     geometry.draw();
+
+    geometry.update(canvas, { "u_now": now });
+    curtain.draw();
 
     requestAnimationFrame(render);
   };
